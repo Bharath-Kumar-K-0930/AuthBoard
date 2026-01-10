@@ -21,6 +21,10 @@ app.use('/api/tasks', require('./routes/taskRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/analytics', require('./routes/analyticsRoutes'));
 
+app.get('/api', (req, res) => {
+    res.send('API is running...');
+});
+
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
