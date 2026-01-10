@@ -49,21 +49,30 @@ const registerUser = async (req, res) => {
 // @route   POST /api/auth/login
 // @access  Public
 const loginUser = async (req, res) => {
+    console.log('Login attempt for email:', req.body.email);
     const { email, password } = req.body;
 
-    // Check for user email
-    const user = await User.findOne({ email });
+    try {
+        // Check for user email
+        const user = await User.findOne({ email });
+        console.log('User found:', user ? 'Yes' : 'No');
 
-    if (user && (await user.matchPassword(password))) {
-        res.json({
-            _id: user.id,
-            name: user.name,
-            email: user.email,
-            token: generateToken(user._id)
-        });
-    } else {
-        res.status(400);
-        throw new Error('Invalid credentials');
+        if (user && (await user.matchPassword(password))) {
+            console.log('Login successful for:', email);
+            res.json({
+                _id: user.id,
+                name: user.name,
+                email: user.email,
+                token: generateToken(user._id)
+            });
+        } else {
+            console.log('Login failed: Invalid credentials');
+            res.status(400);
+            throw new Error('Invalid credentials');
+        }
+    } catch (error) {
+        console.error('Login error detail:', error.message);
+        throw error;
     }
 };
 
