@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
         setIsLoading(true);
         setIsError(false);
         try {
-            const response = await axios.post('http://127.0.0.1:5000/api/auth/register', userData);
+            const response = await API.post('/auth/register', userData);
             if (response.data) {
                 localStorage.setItem('user', JSON.stringify(response.data));
                 setUser(response.data);
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
         setIsLoading(true);
         setIsError(false);
         try {
-            const response = await axios.post('http://127.0.0.1:5000/api/auth/login', userData);
+            const response = await API.post('/auth/login', userData);
             if (response.data) {
                 localStorage.setItem('user', JSON.stringify(response.data));
                 setUser(response.data);
@@ -69,11 +69,7 @@ export const AuthProvider = ({ children }) => {
     const updateProfile = async (updatedData) => {
         setIsLoading(true);
         try {
-            const response = await axios.put('http://127.0.0.1:5000/api/auth/updatedetails', updatedData, {
-                headers: {
-                    Authorization: `Bearer ${user.token}`
-                }
-            });
+            const response = await API.put('/auth/updatedetails', updatedData);
 
             if (response.data) {
                 // Keep the token from the old user object, but update details
@@ -95,10 +91,10 @@ export const AuthProvider = ({ children }) => {
     const uploadPhoto = async (formData) => {
         setIsLoading(true);
         try {
-            const response = await axios.post('http://127.0.0.1:5000/api/auth/upload-photo', formData, {
+            const response = await API.post('/auth/upload-photo', formData, {
                 headers: {
-                    'Authorization': `Bearer ${user.token}`
-                }
+                    'Content-Type': 'multipart/form-data',
+                },
             });
 
             if (response.data) {
@@ -120,11 +116,7 @@ export const AuthProvider = ({ children }) => {
     const changePassword = async (passwordData) => {
         setIsLoading(true);
         try {
-            await axios.put('http://127.0.0.1:5000/api/auth/change-password', passwordData, {
-                headers: {
-                    Authorization: `Bearer ${user.token}`
-                }
-            });
+            await API.put('/auth/change-password', passwordData);
             return { success: true, message: 'Password updated successfully' };
         } catch (error) {
             console.error('Change Password Error:', error);
