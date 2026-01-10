@@ -15,7 +15,7 @@ const { protect } = require('../middleware/authMiddleware');
 // Multer Config
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/')
+        cb(null, process.env.NODE_ENV === 'production' ? '/tmp' : 'uploads/')
     },
     filename: function (req, file, cb) {
         cb(null, 'user-' + req.user.id + '-' + Date.now() + path.extname(file.originalname))
