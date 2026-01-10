@@ -2,6 +2,8 @@
 
 AuthBoard is a production-ready full-stack web application designed to demonstrate frontend excellence, secure authentication, and clean backend architecture. It features a JWT-based authentication system, a protected dashboard, and full CRUD capabilities for task management.
 
+# Click <a href="https://auth-board-red.vercel.app/"> <b>Auth Board</b> Application </a> to visit site
+
 ## 🚀 Features
 
 - **Authentication**: Secure Register & Login (JWT + bcrypt).
