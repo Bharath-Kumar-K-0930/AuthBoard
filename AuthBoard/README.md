@@ -8,10 +8,12 @@ AuthBoard is a production-ready full-stack web application designed to demonstra
 - **Dashboard**: Protected route only accessible to authenticated users.
 - **Task Management**: Create, Read, Update, Delete (CRUD) tasks.
 - **Search & Filter**: Real-time filtering of tasks by status and content.
-- **Responsive Design**: Built with TailwindCSS for mobile-first responsiveness.
+- **Analytics Dashboard**: Visual charts and stats for task productivity.
+- **Responsive Design**: Built with TailwindCSS for mobile-first responsiveness (Futuristic Theme).
 - **Architecture**: MVC Pattern on Backend, Context API + Component-based structure on Frontend.
 - **Profile Management**: Profile picture upload and password change features.
 - **Notifications**: Custom toast notifications for real-time feedback.
+- **Landing Page**: Modern, animated landing page with "Deep Galactic Blue" theme.
 
 ## 🛠️ Tech Stack
 
@@ -21,6 +23,7 @@ AuthBoard is a production-ready full-stack web application designed to demonstra
 - **Axios**: HTTP client with interceptors for auth headers.
 - **React Router**: Client-side routing.
 - **Context API**: State management for user authentication.
+- **Recharts**: Composable charting library for React.
 
 ### Backend
 - **Node.js & Express.js**: Scalable server environment.
@@ -109,6 +112,8 @@ AuthBoard/
 | `/api/tasks` | POST | Create a new task | Yes |
 | `/api/tasks/:id` | PUT | Update a task | Yes |
 | `/api/tasks/:id` | DELETE | Delete a task | Yes |
+| **Analytics** | | | |
+| `/api/analytics` | GET | Get dashboard analytics data | Yes |
 
 ## �🔐 How Authentication Works
 
