@@ -14,6 +14,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Log incoming requests
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.url}`);
+    next();
+});
+
 // Serve static files from the uploads directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -26,6 +32,12 @@ app.get('/api', (req, res) => {
 });
 
 app.use(errorHandler);
+
+// Global 404 for API
+app.use('/api/*', (req, res) => {
+    console.log(`Unmatched API route: ${req.url}`);
+    res.status(404).json({ message: `API route ${req.url} not found` });
+});
 
 const PORT = process.env.PORT || 5000;
 
