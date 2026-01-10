@@ -14,9 +14,14 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Debugging: Confirm API is reached
+app.get('/api/test', (req, res) => {
+    res.json({ message: 'API is reachable', url: req.url, path: req.path });
+});
+
 // Detailed logging for Vercel troubleshooting
 app.use((req, res, next) => {
-    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url} (Path: ${req.path})`);
+    console.log(`[DEBUG] ${req.method} ${req.url} (Path: ${req.path})`);
     next();
 });
 
