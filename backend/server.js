@@ -28,12 +28,24 @@ app.use((req, res, next) => {
 // Serve static files from the uploads directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.use('/api/tasks', require('./routes/taskRoutes'));
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/analytics', require('./routes/analyticsRoutes'));
+// Define API routes
+const router = express.Router();
+router.use('/tasks', require('./routes/taskRoutes'));
+router.use('/auth', require('./routes/authRoutes'));
+router.use('/analytics', require('./routes/analyticsRoutes'));
 
-app.get('/api', (req, res) => {
-    res.send('API is running...');
+// Mount router on both /api and root to handle different Vercel routing behaviors
+app.use('/api', router);
+app.use('/', (req, res, next) => {
+    // If it's not a static file request (handled elsewhere), try the router
+    if (!req.path.includes('.')) {
+        return router(req, res, next);
+    }
+    next();
+});
+
+app.get('/api-status', (req, res) => {
+    res.json({ status: 'running', timestamp: new Date(), url: req.url });
 });
 
 app.use(errorHandler);
